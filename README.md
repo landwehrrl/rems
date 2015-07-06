@@ -1,1 +1,1 @@
-Implementation of a Real Estate Management Database with Flask and MySQL.
+Implementation of a Real Estate Management System with Flask and MySQL.
