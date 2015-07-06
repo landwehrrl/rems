@@ -1,0 +1,9 @@
+.header{
+  background-color: black;
+  color:white;
+  font-family: "Times New Roman", serif;
+  height:10vh;
+  width:100%;
+  display: table;
+  text-align: center;
+}

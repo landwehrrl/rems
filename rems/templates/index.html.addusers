@@ -5,18 +5,35 @@
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="CSS/index.css" rel="stylesheet" type="text/css">
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+      $(function() {
+        $('#btnSignIn').click(function() {
+          $.ajax({
+            url: '/signUp',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+          });
+        });
+      });
+  </script>
   </head>
   <body>
     <div class="header">
       <h1 id="headerLabel">REMS Login</h1>
     </div>
     <div class="jumbotron">
-      <form class="form-signin" action="/validateLogin" method="post">
+      <form class="form-signin">
         <label for="inputName" class="sr-only">Name</label>
         <input type="name" name="inputName" id="inputName" class="form-control" placeholder="Name" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required>
-        <button id="btnSignIn" class="btn btn-lg btn-primary btn-block" type="submit" style="background:darkgreen; color:black">Sign In</button>
+        <button id="btnSignIn" class="btn btn-lg btn-primary btn-block" type="button" style="background:darkgreen; color:black">Sign In</button>
       </form>
       <label>{{error}}</label>
     </div>
