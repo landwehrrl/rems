@@ -1,0 +1,12 @@
+#for use with vagrant later
+pip install virtualenv
+virtualenv rems
+source rems/bin/activate
+
+sudo apt-get install python-dev
+sudo apt-get install libmysqlclient-dev
+
+pip install flask
+pip install flask-script
+pip install WTForms
+pip install Flask-MySQL
