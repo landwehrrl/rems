@@ -1,1 +1,147 @@
-#HOLDER FOR REMS CSS
+/*Using vh for height */
+.header {
+  background-color: black;
+  color:white;
+  font-family: "Times New Roman", serif;
+  height:10vh;
+  width:100%;
+  display: table;
+}
+.header label {
+  font-weight: bold;
+  font-size: 2.5em;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+.uiMenu {
+  font-family: serif;
+  min-width: 300px;
+  width:30%;
+  padding-left: 10px;
+  margin-top: 0.5%;
+}
+.uiMenu.nav{
+  padding: 0;
+  background-color:white;
+  margin: 20px 0px 0px 0px;
+  display: inline;
+}
+.uiMenu.nav li{
+  display: inline; 
+}
+.uiMenu.nav li a {
+  background-color: green;
+  color: black;
+  padding: 5px 5px;
+  text-decoration: none;
+  border-radius: 6px 6px 0px 0px;
+  transition: .5s;
+}
+.uiMenu.nav li a:hover {
+  background-color: orange;
+  cursor: pointer;
+}
+.linkBlock{
+  background-color: black;
+  color: white;
+  height:78vh;
+  width:100%;
+  float:left;
+  padding:5px;
+  border-radius: 6px 6px 0px 0px;
+}
+#tabFunctions li {
+  color:"green";
+}
+#tabFunctions li a {
+  color:"green";
+}
+#tabFunctions li a:hover{
+  background-color: orange;
+  cursor: pointer;
+}
+#d3ChartsID{
+  background-color: #ffffff;
+  /*height:300px;*/
+  height: 43vh;
+  width:65%;
+  float: right;
+}
+#commentsID{
+  background-color: white;
+  /*height:100px;*/
+  height: 35vh;
+  width:65%;
+  float: right;
+    
+  /*not used yet, will be used for comments*/
+}
+#footer {
+  font-size: .7em;
+  text-align: right;
+  background-color:black;
+  color:white;
+  clear:both;
+  padding: 5px;
+}
+input[type="submit"].blend{
+  border: 0;
+  background: transparent;
+  color: white;
+}
+input[type="submit"]:hover{
+  background-color: orange;
+  cursor: pointer;
+}
+#tableHead td{
+  font-size: 1.25em;
+  font-family: sans-serif;
+  color:green;
+  transition: linear .25s;
+}
+#tableHead td:hover{
+  color:purple;
+  cursor: pointer;
+}
+
+#pMain {
+  /*example for named pieces*/
+  background-color: white;
+  text-align: left;
+  color: green;	
+}
+#greyRow {background-color: lightblue;}
+#whiteRow {background-color: white;}
+#hoverElement:hover{
+  cursor: pointer;
+  color: green;
+  font-size: large;
+}
+#untilDate {
+  float:right;
+  width: 60%;
+  margin: 2px;
+}
+#fromDate {
+  float:right;
+  width: 60%;
+  margin: 2px;
+}
+.ui-datepicker-calendar {
+  display: none;
+}
+
+.selectClass {
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.bar{
+  display: inline-block;
+  width: 20px;
+  height: 75px;
+  background-color: gray;
+  border: 1px solid black;
+  margin: 1px;
+}

@@ -1,18 +1,23 @@
-from flask import Flask, render_template, json, request, session, redirect
+from flask import Flask, render_template, json, request, session, redirect, url_for, flash
 from flask.ext.mysql import MySQL
-from werkzeug import generate_password_hash, check_password_hash
+from werkzeug import generate_password_hash, check_password_hash, secure_filename
 from rems.views import pages
+from rems.upload import upload
 
 app = Flask(__name__, static_url_path='')
 app.secret_key = 'CHANGE_FOR_REAL_WORLD'
 
-mysql = MySQL()
 # MySQL configurations
+mysql = MySQL()
 app.config['MYSQL_DATABASE_USER'] = 'root'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
 app.config['MYSQL_DATABASE_DB'] = 'rems'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
+
+# Other App Configurations
+app.config['UPLOAD_FOLDER'] = 'static/UPLOADS/'
+app.config['ALLOWED_EXTENSIONS']=set(['csv'])
 
 def callSQLStoredProcedure(sp,*kwargs):
   global conn,cursor
@@ -22,27 +27,41 @@ def callSQLStoredProcedure(sp,*kwargs):
   return cursor.fetchall()
   
 @app.route("/")
-def main():
+def index():
+  if session.get('message'):
+    myError = session['message']
+    session['message']=''
+    return render_template('index.html',error=myError)
   return render_template('index.html')
 
-@app.route('/rems')
+@app.route('/rems', methods=['POST'])
 def rems():
-  return render_template('rems.html' , user = data[0][1], session = session)
+  if session.get('user'):
+    inputType = request.form['inputType']
+    if(inputType == 'upload'):
+      results = upload(app)
+    else:
+      results = render_template('rems.html' , user = session['user'], session = session)
+    return results
+  else:
+    return redirect('/')
 
 @app.route('/validateLogin',methods=['POST'])
 def validateLogin():
   _name = request.form['inputName']
   _password = request.form['inputPassword']
-    
+  
   try:
     data = callSQLStoredProcedure('sp_validateUser',(_name,))
     if len(data) > 0 and check_password_hash(str(data[0][2]),_password):
       session['user'] = data[0][0]
-      return render_template('rems.html' , user = data[0][1], session = session)
-    return render_template('index.html', error = 'Incorrect Username or Password');
+      return redirect('/rems')
+    session['message'] = 'Incorrect username or password'
+    return redirect('/')
   except Exception as e:
     print str(e)
-    return render_template('index.html', error = 'General Error');
+    session['message'] = 'General Failure, please contact web admin'
+    return redirect('/')
   finally:
     cursor.close()
     conn.close()

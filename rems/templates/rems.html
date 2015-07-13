@@ -1,8 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+  	<meta charset="utf-8">
+  	<title>RJL1 REMS</title>
+  	<link href="CSS/rems.css" rel="stylesheet" type="text/css">
+  	<style type="text/css"></style>
+    <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="JS/rems.js" type="text/javascript"></script>
+    <script src="JS/entry.js" type="text/javascript"></script>
+     <script src="JS/calendar.js" type="text/javascript"></script>
+    <!--
+  	<script src="JS/rent.js" type="text/javascript"></script>
+    <script src="JS/tables.js" type="text/javascript"></script>
+    <script src="JS/rems.js" type="text/javascript"></script>
+   
+    <script src="JS/overlay.js" type="text/javascript"></script>
+    <script src="JS/sort.js" type="text/javascript"></script>
+    -->
   </head>
-  <body>
-    hello world REMS.html {{user}}{{session}}
+  <body class="main">
+    <div class="header"><label>RJL1 REMS</label></div>
+    <br /> 
+    <div class= "uiMenu">
+      <ul class = "uiMenu nav">
+        <li><a id = "menuTabsRent" class = "uiTab" onclick = "loadRent()" 
+               style = "background-color:black; color:white">Rent</a></li>
+        <li><a id = "menuTabsMaint" class = "uiTab" onclick = "loadMaint()">Maint</a></li>
+        <li><a id = "menuTabsBills" class = "uiTab" onclick = "loadBills()">Bills</a></li>
+        <li><a id = "menuTabsTenants" class = "uiTab" onclick = "loadTenants()">Tenants</a></li> 
+        <li><a id = "menuTabsEntry" class = "uiTab" onclick = "loadEntry()">Entry</a></li>
+        {% if reloadVals %}
+          <script type="text/javascript">
+            window.onload = function(){
+              reloadTabs({{ reloadVals|tojson }});
+            }
+          </script>
+        {% endif %}
+      </ul>
+      <div class = "linkBlock" id = "linkTextArea">
+        <ul id = "tabFunctions">
+          <li>
+            <form action = '' method = 'post' enctype='multipart/form-data'>
+              <input type='hidden' name='inputType' value='CurrentRentStatus'>
+              <input type='submit' value ='Current Rent Status' class='blend'>
+            </form>
+          </li>        
+          <li>
+            <form action = '' method = 'post' enctype='multipart/form-data'>
+              <input type='hidden' name='inputType' value='YearToDateRentStatus'>
+              <input type='submit' value ='Year To Date Rent Status' class='blend'>
+            </form>
+          </li>
+          <script type="text/javascript">setCustomRange("Custom Rent Status");</script>
+        </ul>
+      </div>
+    </div>
+    
+    <div id="d3ChartsID">
+      {% if CRS %}
+          <script type="text/javascript">
+            window.onload = function(){
+              CurrentRentStatus({{ CRS|tojson }});
+            }
+          </script>
+      {% else %}
+            <script type="text/javascript">getCharts();</script>
+      {% endif %}
+    </div>
+    <div id="commentsID">
+      <script type="text/javascript">getComments();</script>
+    </div>
+    <div id = "footer">
+      <script type="text/javascript">getFooter();</script>
+    </div>
   </body>
+
 </html>
